@@ -1,4 +1,3 @@
-# Tutorials
-Discord.js tutorials
+# Read more on our wiki!
 
-Rename `template.env` to `.env`
+[https://github.com/Garlic-Team/Tutorials/wiki](https://github.com/Garlic-Team/Tutorials/wiki)
