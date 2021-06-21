@@ -1,3 +1,9 @@
-# Read more on our wiki!
+# Random-Bash-Things
 
-[https://github.com/Garlic-Team/Tutorials/wiki](https://github.com/Garlic-Team/Tutorials/wiki)
+Random bash things tested on debian based software.
+
+
+
+## Tested on Raspberry Pi 4B
+
+- Just, you can use it!
