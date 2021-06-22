@@ -8,6 +8,7 @@ const client = new Client();
 client.on("ready", () => {
    const gc = new GCommands(client, {
         cmdDir: "commands/",
+         eventDir: "events/",
         language: "english",
         slash: {
             slash: "both",
