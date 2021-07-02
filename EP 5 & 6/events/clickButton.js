@@ -29,7 +29,7 @@ module.exports = {
             msgToEdit.embeds[0]["footer"] = "Status: Denied";
 
             button.edit({
-                content: new MessageEmbed(msgToEdit),
+                content: new MessageEmbed(msgToEdit.embeds[0]),
                 components: []
             })
 
