@@ -4,7 +4,7 @@ module.exports = {
     name: "clickButton",
     once: false,
     run: async(client, button) => {
-        if(button.id.startsWith(`appAccept_`)) {
+        if(button.id.startsWith(`accept_`)) {
             let user = client.users.cache.get(button.id.split("_")[1]);
             if(!user) return button.edit({content:"Left :(", components: []});
 
@@ -20,7 +20,7 @@ module.exports = {
             user.send(`Your application accepted!`)
         }
 
-        if(button.id.startsWith(`appDenied_`)) {
+        if(button.id.startsWith(`deny_`)) {
             let user = client.users.cache.get(button.id.split("_")[1]);
             if(!user) return button.edit({content:"Left :(", components: []});
 
