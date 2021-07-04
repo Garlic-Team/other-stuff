@@ -48,16 +48,6 @@ module.exports = {
             .setStyle("blurple")
             .setID(`buildEmbed_builder_color`)
 
-        let addfield = new MessageButton()
-            .setLabel("Add Field")
-            .setStyle("blurple")
-            .setID(`buildEmbed_builder_addfield`)
-
-        let removefield = new MessageButton()
-            .setLabel("Remove Field")
-            .setStyle("blurple")
-            .setID(`buildEmbed_builder_removefield`)
-
         let save = new MessageButton()
             .setLabel("Save")
             .setStyle("green")
@@ -73,15 +63,9 @@ module.exports = {
 
         let buttonRow2 = new MessageActionRow()
             .addComponent(footerImage).addComponent(image).addComponent(thumbnail)
-            .addComponent(addfield).addComponent(removefield)
 
         let buttonRow3 = new MessageActionRow().addComponent(save).addComponent(cancel)
         
-        let msg = await respond({
-            content: embedToBuild,
-            components: [buttonRow, buttonRow2, buttonRow3]
-        })
-
         let buttonEvent = async (button) => {
             if (button.message.id === msg.id) {
               if (button.clicker.user.id === member.id) {
@@ -91,6 +75,11 @@ module.exports = {
               }
             };
         }
+
+        let msg = await respond({
+            content: embedToBuild,
+            components: [buttonRow, buttonRow2, buttonRow3]
+        })
 
         client.on("clickButton", buttonEvent)
 
@@ -110,9 +99,8 @@ module.exports = {
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+
                 '(\\#[-a-z\\d_]*)?$','i');
 
-                button.edit({
-                    autoDefer: false,
-                    content: `Waiting for input... ${builderId.includes("field") ? "(field name)" : ""}`,
+                button.message.edit({
+                    content: `Waiting for input...`,
                     inlineReply: false,
                     components: new MessageActionRow().addComponent(new MessageButton().setLabel("Cancel").setStyle("red").setID(`buildEmbed_cancel`))
                 })
@@ -152,39 +140,20 @@ module.exports = {
                         embedToBuild.setThumbnail(finalInput.content)
                     }
                 }
-                if(builderId == "addfield") {
-                    button.edit({
-                        autoDefer: false,
-                        content: `Waiting for input... ${builderId == "addfield" ? "(field value)" : ""}`,
-                        inlineReply: false,
-                        components: new MessageActionRow().addComponent(new MessageButton().setLabel("Cancel").setStyle("red").setID(`buildEmbed_cancel`))
-                    })
 
-                    let fieldValue = await getFieldValue(button)
-                    embedToBuild.addField(finalInput.content, fieldValue.content)
-
-                    fieldValue.delete()
-                }
-                if(builderId == "removefield") {
-                    let toRemove = embedToBuild.fields.find(f => f.name == finalInput.content);
-                    let newFields = embedToBuild.fields.find(f => f.name != finalInput.content)
-                    if(!newFields) newFields = [];
-
-                    if(toRemove) embedToBuild.fields = newFields
-                }
                 if(builderId == "timestamp") embedToBuild.setTimestamp()
 
-                button.edit({
-                    autoDefer: false,
+                button.message.edit({
                     inlineReply: false,
                     content: embedToBuild,
                     components: [buttonRow, buttonRow2, buttonRow3]
                 })
-                finalInput.delete();
+                
+                if(noInputFinal) finalInput.delete();
             }
 
             if(id == `cancel`) {
-                button.edit({content:`Canceling...`,components:[], autoDefer: false}) 
+                button.edit({content:`Canceling...`,components:[]}) 
 
                 setTimeout(async() => {
                     let message = await button.channel.messages.fetch(button.message.id)
@@ -198,28 +167,14 @@ module.exports = {
                 let messageToDelete = await button.channel.messages.fetch(button.message.id);
                 messageToDelete.delete();
                 
-                button.channel.send({content:embedToBuild,components:[], autoDefer: false,inlineReply: false}) 
+                button.channel.send({content:embedToBuild,components:[],inlineReply: false}) 
                 await client.removeListener("clickButton", buttonEvent);
             }
 
             setTimeout(() => {
-                button.edit({content:embedToBuild,components:[],autoDefer: false,inlineReply: false})
+                button.message.edit({content:embedToBuild,components:[],inlineReply: false})
                 client.removeListener("clickButton", buttonEvent);
             }, 300000)
-        }
-
-        async function getFieldValue(button) {
-            let input;
-            let filter = async(message) => button.clicker.user.id == message.author.id
-            input = await button.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).catch(e => {
-                return client.emit(`clickButton`, {
-                    id: `buildEmbed_cancel`,
-                    message: button.message,
-                    channel: button.channel
-                })
-            })
-
-            return input ? input.first() : "";
         }
     }
 }
