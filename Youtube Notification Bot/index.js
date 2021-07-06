@@ -26,7 +26,8 @@ client.on("ready", async() => {
 
         let req = (await client.request.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=${client.config.youtubeChannelId}`)).items[0]
 
-        let ifAlready = (await ytChannel.messages.fetch({ limit: 1 })).array()[0].content.match(urlRegexp)[1];
+        let ifAlready = (await ytChannel.messages.fetch({ limit: 1 })).array()[0].content.match(urlRegexp);
+        if(ifAlready != null) ifAlready = ifAlready[1]
         if(ifAlready == req.link) return;
 
         ytChannel.send(`${client.config.newVideoMessage.replace(`{url}`,req.link)}`)
