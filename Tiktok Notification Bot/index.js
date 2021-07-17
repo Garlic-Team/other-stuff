@@ -47,7 +47,7 @@ client.on("ready", async() => {
             .setFooter(`Fans: ${new Intl.NumberFormat().format(post.authorMeta.fans)} | Videos: ${new Intl.NumberFormat().format(post.authorMeta.video)} | Hearts: ${new Intl.NumberFormat().format(post.authorMeta.heart)}`)
 
         tiktokChannel.send({content: `${client.config.newPostMessage.replace(`{url}`,link)}`, embeds: [embed]})
-    }, 5000)
+    }, 15000)
 })
 
 client.login(process.env.token)
