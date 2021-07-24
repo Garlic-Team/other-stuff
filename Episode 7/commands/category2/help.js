@@ -11,7 +11,7 @@ module.exports = {
 
         const commandCategory = (category) => {
             return client.gcommands
-                .filter(cmd => cmd.category == category)
+                .filter(cmd => cmd.gcategory == category)
                 .map(cmd => `\`${cmd.name}\``)
                 .join(", ")
         }
