@@ -54,7 +54,7 @@ module.exports = class extends Command {
                         .setMaxValues(1)
                         .setMinValues(1)
                         .addOptions(
-                            await this.buildSelectOptions(res)
+                            await this.buildSelectOptions(client, res)
                         )
                 )
             ]
@@ -68,17 +68,21 @@ module.exports = class extends Command {
         return output.reply(this.formatRespond(client, args, this.docs.get(...output.values[0].split(/\.|#/))));
     }
 
-    buildSelectOptions(elements) {
+    buildSelectOptions(client, elements) {
         let transformDesc = (res) => {
             res = res.split("\n")[0];
             return res.length > 47 ? `${res.trim().split(0, 47)}...` : res
         }
         
         return elements.map(element => {
+            let emoji = client.emojis.cache.find(e => e.name === `djs_${element.docType}`);
             return {
                 label: element.formattedName,
                 value: element.formattedName,
-                description: transformDesc(element.formattedDescription || element.description || 'No description found')
+                description: transformDesc(element.formattedDescription || element.description || 'No description found'),
+                emoji: {
+                    id: emoji.id
+                }
             }
         })
     }
