@@ -1,4 +1,8 @@
-// Djs V13, GCommands v5
+/* Djs V13, GCommands v5
+ * By Hyro, Pog Fish
+ * Emojis: https://github.com/Garlic-Team/Tutorials/raw/main/features/assets/djs_emojis.zip
+*/
+
 const { Command, ArgumentType } = require('gcommands');
 const { MessageActionRow, MessageSelectMenu } = require('discord.js');
 const Docs = require('discord.js-docs')
