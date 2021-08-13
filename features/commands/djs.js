@@ -12,7 +12,7 @@ module.exports = class extends Command {
         super(...args, {
             name: "djs",
             description: "Discord.js documentation",
-            guildOnly: "747526604116459691",
+            //guildOnly: "your id", or remove
             args: [
                 {
                     name: "query",
