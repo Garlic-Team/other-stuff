@@ -1,23 +1,21 @@
 require("dotenv").config();
 
-const { Client } = require("discord.js"),
-    {GCommands} = require("gcommands")
+const { GCommandsClient } = require("gcommands")
 
-const client = new Client();
-
-client.on("ready", () => {
-    const gc = new GCommands(client, {
-        cmdDir: "commands/",
-        eventDir: "events/",
-        language: "english",
-        slash: {
-            slash: false,
-            prefix: "!"
-        }
-    })
-
-    gc.on("log", console.log)
-    gc.on("debug", console.log)
+const client = new GCommandsClient({
+    cmdDir: "commands/",
+    eventDir: "events/",
+    language: "english",
+    commnads: {
+        slash: false,
+        context: false,
+        prefix: "!"
+    }
 })
+
+client.on("ready", () => { console.log("ready") })
+client
+    .on("log", console.log)
+    .on("debug", console.log);
 
 client.login(process.env.token)

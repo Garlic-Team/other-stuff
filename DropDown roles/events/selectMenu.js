@@ -2,7 +2,7 @@ module.exports = {
     name: "selectMenu",
     once: false,
     run: async(client, menu) => {
-        let menuId = menu.id
+        let menuId = menu.customId
 
         if(menuId.startsWith(`selectRoles_`)) {
             let panel = menuId.split("_")[1]

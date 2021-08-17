@@ -1,26 +1,23 @@
 require("dotenv").config();
-const { Client, MessageEmbed } = require("discord.js"),
-    { GCommands } = require("gcommands")
+const { GCommandsClient } = require("gcommands");
 
-const client = new Client();
+const client = new GCommandsClient({
+    cmdDir: "commands/",
+    language: "english",
+    commands: {
+        slash: true,
+        context: false,
+        prefix: "."
+    },
+    intents: ["GUILDS","GUILD_MESSAGES"]
+})
+
 client.tiktok = require('tiktok-scraper')
 client.config = require("./config.json")
 
 const resolveId = async () => (await client.tiktok.getUserProfileInfo(client.config.tiktokAccount)).user.id
 
 client.on("ready", async() => {
-    const gc = new GCommands(client, {
-        cmdDir: "commands/",
-        language: "english",
-        slash: {
-            slash: true,
-            prefix: "."
-        }
-    })
-
-    gc.on("log", console.log)
-    gc.on("debug", console.log)
-
     const userID = await resolveId();
     client.tiktokUser = await client.tiktok.user(userID);
     setInterval(async() => {
@@ -34,9 +31,10 @@ client.on("ready", async() => {
         let author = post.authorMeta.nickName;
         let link = post.webVideoUrl;
 
-        let ifAlready = (await tiktokChannel.messages.fetch({ limit: 1 })).array()[0].content.match(urlRegexp);
-        if(ifAlready != null) ifAlready = ifAlready[1];
-        if(ifAlready == link) return;
+        let ifAlready = [...(await tiktokChannel.messages.fetch({ limit: 1 })).values()];
+        if (ifAlready.length > 0) ifAlready = ifAlready[0].content.match(urlRegexp);
+        if (ifAlready != null) ifAlready = ifAlready[1];
+        if (ifAlready == link) return;
 
         const embed = new MessageEmbed()
             .setAuthor(author, post.authorMeta.avatar)
@@ -49,5 +47,9 @@ client.on("ready", async() => {
         tiktokChannel.send({content: `${client.config.newPostMessage.replace(`{url}`,link)}`, embeds: [embed]})
     }, 15000)
 })
+
+client
+    .on("log", console.log)
+    .on("debug", console.log);
 
 client.login(process.env.token)
