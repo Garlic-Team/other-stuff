@@ -66,7 +66,7 @@ module.exports = class extends Command {
         if(!output) return edit({ content: "You have not replied within 2 minutes.", components: [] })
 
         edit({ content: "Suggestion sent.", components: [] });
-        return output.reply(this.formatRespond(client, args, this.docs.get(...output.values[0].split(/\.|#/))));
+        return output.reply.send(this.formatRespond(client, args, this.docs.get(...output.values[0].split(/\.|#/))));
     }
 
     buildSelectOptions(client, elements) {

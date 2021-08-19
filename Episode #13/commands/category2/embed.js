@@ -92,7 +92,7 @@ module.exports = class extends Command {
 
         let buttonEvent = async (button) => {
             if (button.message.id === msg.id) {
-              if (button.user.id === member.id) {
+              if (button.clicker.user.id === member.id) {
                 embedEditing(button);
               } else {
                 button.defer();
@@ -119,7 +119,6 @@ module.exports = class extends Command {
                 '(\\#[-a-z\\d_]*)?$','i');
 
                 button.message.edit({
-                    autoDefer: false,
                     content: `Waiting for input... ${builderId.includes("field") ? "(field name)" : ""}`,
                     inlineReply: false,
                     components: new MessageActionRow().addComponent(new MessageButton().setLabel("Cancel").setStyle("red").setCustomId(`buildEmbed_cancel`))
@@ -127,8 +126,8 @@ module.exports = class extends Command {
 
                 let input;
                 if(noInputFinal) {
-                    let filter = async(message) => button.clicker.user.id == message.author.id
-                    input = await button.channel.awaitMessages({filter,  max: 1, time: 30000, errors: ['time'] }).catch(e => {
+                    let filter = async(message) => button.user.id == message.author.id
+                    input = await button.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).catch(e => {
                         return client.emit(`clickButton`, {
                             id: `buildEmbed_cancel`,
                             message: button.message,
@@ -162,7 +161,6 @@ module.exports = class extends Command {
                 }
                 if(builderId == "addfield") {
                     button.message.edit({
-                        autoDefer: false,
                         content: `Waiting for input... ${builderId == "addfield" ? "(field value)" : ""}`,
                         inlineReply: false,
                         components: new MessageActionRow().addComponent(new MessageButton().setLabel("Cancel").setStyle("red").setCustomId(`buildEmbed_cancel`))
@@ -183,16 +181,17 @@ module.exports = class extends Command {
                 if(builderId == "timestamp") embedToBuild.setTimestamp()
 
                 button.message.edit({
-                    autoDefer: false,
                     inlineReply: false,
                     content: embedToBuild,
                     components: [buttonRow, buttonRow2, buttonRow3]
                 })
-                finalInput.delete();
+                
+                
+                if(noInputFinal) finalInput.delete();
             }
 
             if(id == `cancel`) {
-                button.message.edit({content:`Canceling...`,components:[], autoDefer: false}) 
+                button.message.edit({content:`Canceling...`,components:[]}) 
 
                 setTimeout(async() => {
                     button.message.delete();
@@ -204,12 +203,12 @@ module.exports = class extends Command {
             if(id == `save`) {
                 button.message.delete();
                 
-                button.channel.send({content:embedToBuild,components:[], autoDefer: false,inlineReply: false}) 
+                button.channel.send({content:embedToBuild,components:[], inlineReply: false}) 
                 await client.removeListener("clickButton", buttonEvent);
             }
 
             setTimeout(() => {
-                button.message.edit({content:embedToBuild,components:[],autoDefer: false,inlineReply: false})
+                button.message.edit({content:embedToBuild,components:[],inlineReply: false})
                 client.removeListener("clickButton", buttonEvent);
             }, 300000)
         }
@@ -217,7 +216,7 @@ module.exports = class extends Command {
         async function getFieldValue(button) {
             let input;
             let filter = async(message) => button.user.id == message.author.id
-            input = await button.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).catch(e => {
+            input = await button.channel.awaitMessages({filter, max: 1, time: 30000, errors: ['time'] }).catch(e => {
                 return client.emit(`clickButton`, {
                     id: `buildEmbed_cancel`,
                     message: button.message,
