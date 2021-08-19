@@ -92,7 +92,7 @@ module.exports = class extends Command {
 
         let buttonEvent = async (button) => {
             if (button.message.id === msg.id) {
-              if (button.clicker.user.id === member.id) {
+              if (button.user.id === member.id) {
                 embedEditing(button);
               } else {
                 button.defer();
@@ -118,7 +118,7 @@ module.exports = class extends Command {
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+
                 '(\\#[-a-z\\d_]*)?$','i');
 
-                button.edit({
+                button.message.edit({
                     autoDefer: false,
                     content: `Waiting for input... ${builderId.includes("field") ? "(field name)" : ""}`,
                     inlineReply: false,
@@ -128,7 +128,7 @@ module.exports = class extends Command {
                 let input;
                 if(noInputFinal) {
                     let filter = async(message) => button.clicker.user.id == message.author.id
-                    input = await button.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).catch(e => {
+                    input = await button.channel.awaitMessages({filter,  max: 1, time: 30000, errors: ['time'] }).catch(e => {
                         return client.emit(`clickButton`, {
                             id: `buildEmbed_cancel`,
                             message: button.message,
@@ -161,7 +161,7 @@ module.exports = class extends Command {
                     }
                 }
                 if(builderId == "addfield") {
-                    button.edit({
+                    button.message.edit({
                         autoDefer: false,
                         content: `Waiting for input... ${builderId == "addfield" ? "(field value)" : ""}`,
                         inlineReply: false,
@@ -182,7 +182,7 @@ module.exports = class extends Command {
                 }
                 if(builderId == "timestamp") embedToBuild.setTimestamp()
 
-                button.edit({
+                button.message.edit({
                     autoDefer: false,
                     inlineReply: false,
                     content: embedToBuild,
@@ -192,34 +192,32 @@ module.exports = class extends Command {
             }
 
             if(id == `cancel`) {
-                button.edit({content:`Canceling...`,components:[], autoDefer: false}) 
+                button.message.edit({content:`Canceling...`,components:[], autoDefer: false}) 
 
                 setTimeout(async() => {
-                    let message = await button.channel.messages.fetch(button.message.id)
-                    message.delete();
+                    button.message.delete();
                 }, 3000)
 
                 await client.removeListener("clickButton", buttonEvent);
             }
 
             if(id == `save`) {
-                let messageToDelete = await button.channel.messages.fetch(button.message.id);
-                messageToDelete.delete();
+                button.message.delete();
                 
                 button.channel.send({content:embedToBuild,components:[], autoDefer: false,inlineReply: false}) 
                 await client.removeListener("clickButton", buttonEvent);
             }
 
             setTimeout(() => {
-                button.edit({content:embedToBuild,components:[],autoDefer: false,inlineReply: false})
+                button.message.edit({content:embedToBuild,components:[],autoDefer: false,inlineReply: false})
                 client.removeListener("clickButton", buttonEvent);
             }, 300000)
         }
 
         async function getFieldValue(button) {
             let input;
-            let filter = async(message) => button.clicker.user.id == message.author.id
-            input = await button.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).catch(e => {
+            let filter = async(message) => button.user.id == message.author.id
+            input = await button.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).catch(e => {
                 return client.emit(`clickButton`, {
                     id: `buildEmbed_cancel`,
                     message: button.message,
