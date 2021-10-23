@@ -3,10 +3,10 @@ const { GCommandsClient } = require("gcommands"),
     RSSParser = require("rss-parser");
 
 const client = new GCommandsClient({
-    cmdDir: "commands/",
+    cmdDir: __dirname + "/commands/",
     language: "english",
     commands: {
-        slash: true,
+        slash: 'slash',
         context: false,
         prefix: "."
     },

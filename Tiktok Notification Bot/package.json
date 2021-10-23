@@ -5,7 +5,7 @@
   "dependencies": {
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "gcommands": "^6.2.6",
+    "gcommands": "^7.1.2",
     "tiktok-scraper": "^1.4.36"
   },
   "license": "MIT"
