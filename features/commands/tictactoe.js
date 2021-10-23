@@ -1,10 +1,10 @@
-const { MessageButton, MessageActionRow, ButtonTypes } = require("gcommands/src")
+const { MessageButton, MessageActionRow } = require("gcommands/src")
 
 module.exports = {
     name: "tictactoe",
     description: "tictactoe",
     guildOnly: "747526604116459691",
-    expectedArgs: [{
+    args: [{
         name: "member",
         type: 6,
         description: "member"

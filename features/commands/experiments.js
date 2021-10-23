@@ -4,7 +4,11 @@ module.exports = {
     name: "experiments",
     description: "position",
     guildOnly: "833628077556367411",
-    expectedArgs: "<member:6:member>",
+    args: [{
+      name: "member",
+      type: 6,
+      description: "member"
+    }],
     run: async({client, member, guild, respond}, args) => {
         let argMember = args.length != 0 ? guild.members.cache.get(args[0]) : member
         if(!argMember) argMember = {
