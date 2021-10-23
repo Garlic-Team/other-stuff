@@ -15,7 +15,7 @@ const client = new GCommandsClient({
 client.tiktok = require('tiktok-scraper')
 client.config = require("./config.json")
 
-const resolveId = async () => (await client.tiktok.getUserProfileInfo(client.config.tiktokAccount)).user.id
+const resolveId = async () => (await client.tiktok.getUserProfileInfo(client.config.tiktokAccount)).userId
 
 client.on("ready", async() => {
     const userID = await resolveId();
