@@ -1,10 +1,15 @@
-const { MessageSelectMenu, MessageSelectMenuOption, MessageActionRow } = require("gcommands")
+const { MessageSelectMenu, MessageSelectMenuOption, MessageActionRow, Command } = require("gcommands")
 
-module.exports = {
-    name: "setup",
-    description: "roles setup",
-    userRequiredPermissions: "MANAGE_GUILD",
-    run: async({client, respond}) => {
+module.exports = class extends Command {
+    constructor(client) {
+        super(client, {
+            name: "setup",
+            description: "roles setup",
+            userRequiredPermissions: "MANAGE_GUILD"
+        })
+    }
+
+    async run({ respond }) {
         const dropdown = new MessageSelectMenu()
             .setID(`selectRoles_color`)
             .setMaxValues(1)

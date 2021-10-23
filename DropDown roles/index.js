@@ -3,11 +3,11 @@ require("dotenv").config();
 const { GCommandsClient } = require("gcommands")
 
 const client = new GCommandsClient({
-    cmdDir: "commands/",
-    eventDir: "events/",
+    cmdDir: __dirname + "/commands/",
+    eventDir: __dirname + "/events/",
     language: "english",
     commnads: {
-        slash: false,
+        slash: 'both',
         context: false,
         prefix: "!"
     }

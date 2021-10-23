@@ -1,16 +1,23 @@
-module.exports = {
-    name: "selectMenu",
-    once: false,
-    run: async(client, menu) => {
-        let menuId = menu.customId
+const { Event } = require('gcommands');
+
+module.exports = class extends Event {
+    constructor(client) {
+        super(client, {
+            name: "selectMenu",
+            once: false,
+        })
+    }
+
+    async run(client, menu) {
+        let menuId = menu.customId;
 
         if(menuId.startsWith(`selectRoles_`)) {
-            let panel = menuId.split("_")[1]
+            let panel = menuId.split("_")[1];
 
             if(panel == "color") {
                 let colorRole = String(menu.values[0]).split(":")[1], colorRoleFinal = colorRole.charAt(0).toUpperCase() + colorRole.slice(1);
 
-                let role = menu.guild.roles.cache.find(r => r.name == colorRoleFinal)
+                let role = menu.guild.roles.cache.find(r => r.name == colorRoleFinal);
                 if(role) {
                     if(menu.clicker.member.roles.cache.find(r => r.name == colorRoleFinal)) {
                         menu.clicker.member.roles.remove(role)

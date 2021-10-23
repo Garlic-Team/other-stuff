@@ -1,3 +1,4 @@
+const { Command } = require('gcommands');
 const config = require("../config.json")
 
 module.exports = class extends Command {
