@@ -13,6 +13,13 @@ module.exports = class extends Command {
     async run({ client, respond }) {
         const { collector: newPosts } = client.tiktokUser;
 
+        if(!newPosts) {
+            return respond({
+                content: `Try wait`,
+                ephemeral: true
+            })
+        }
+        
         respond({
             content: `${client.config.latestPostMessage.replace("{url}", newPosts[0].webVideoUrl)}`,
             ephemeral: true
