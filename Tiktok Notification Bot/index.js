@@ -2,7 +2,9 @@ require("dotenv").config();
 const { GCommandsClient } = require("gcommands");
 
 const client = new GCommandsClient({
-    cmdDir: __dirname + "/commands/",
+    loader: {
+        cmdDir: __dirname + "/commands/",
+    },
     language: "english",
     commands: {
         slash: 'slash',
