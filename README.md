@@ -9,6 +9,10 @@ Nodejs v16
 2. Rename `template.env` to `.env`  
 3. `npm start`  
 
+**Todo:**
+--
+1. Rewrite to `gcommands@next-dev`
+
 **Discord Server:**
 --
 https://discord.gg/AjKJSBbGm2
