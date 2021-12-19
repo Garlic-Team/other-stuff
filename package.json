@@ -1,0 +1,25 @@
+{
+  "name": "modmail-bot",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/main.js",
+    "pm2": "pm2 start main.js --name ModMail",
+    "eslint": "eslint src/"
+  },
+  "keywords": [],
+  "author": "Garlic-Team (xHyroM)",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-plugin-import": "^2.25.3"
+  },
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "gcommands": "^8.0.3",
+    "path": "^0.12.7"
+  }
+}
