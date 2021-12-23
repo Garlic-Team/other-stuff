@@ -1,26 +1,30 @@
+const express = require('express')();
+express.get('/', (req, res) => res.send('<!-- auto-pinging 525316393768452098 -->'))
+express.listen(3000);
+
 const mineflayer = require('mineflayer');
 const sleep = require('util').promisify(setTimeout);
 
 const startBot = () => {
     const bot = mineflayer.createBot({
-        host: 'xHyroMLolVideo.aternos.me',
+        host: process.env.IP,
         username: 'Uptimer'
     })
 
     bot.on('login', async() => {
-        console.log('Joined!')
+        console.log('Joined!');
 
-        await sleep(5000);
-        
+        await sleep(10000);
+
         bot.end();
     })
 
-    bot.on('kicked', console.log)
-    bot.on('error', console.log)
+    bot.on('kicked', () => startBot());
+    bot.on('error', () => startBot());
 }
 
-setTimeout(() => {
-    startBot()
+setInterval(() => {
+    startBot();
 }, 30000)
 
 startBot();
