@@ -1,7 +1,7 @@
-const { GCommandsClient } = require('gcommands');
+const { GClient } = require('gcommands');
 const { join } = require('path');
 
-class ModMailClient extends GCommandsClient {
+class ModMailClient extends GClient {
     constructor(options) {
         super(options);
 

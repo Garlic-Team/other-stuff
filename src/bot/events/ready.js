@@ -1,12 +1,12 @@
 const { Client } = require('discord.js');
-const { Event } = require('gcommands');
+const { Listener } = require('gcommands');
 
-class Ready extends Event {
-    constructor(client) {
-        super(client, {
+new class Ready extends Listener {
+    constructor() {
+        super({
             name: 'ready',
-            ws: false,
-            once: true,
+            event: 'ready',
+            once: true
         });
     }
 
@@ -35,5 +35,3 @@ class Ready extends Event {
         })
     }
 }
-
-module.exports = Ready;

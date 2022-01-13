@@ -10,16 +10,9 @@ const client = new ModMailClient({
         Intents.FLAGS.DIRECT_MESSAGES,
     ],
     language: 'english',
-    loader: {
-        cmdDir: path.join(__dirname, 'commands'),
-        eventDir: path.join(__dirname, 'events'),
-    },
-    commands: {
-        slash: 'slash',
-        context: 'false',
-        prefix: '*',
-        allowDm: false,
-    },
+    dirs: [
+        path.join(__dirname, 'events')
+    ],
     partials: ['MESSAGE', 'CHANNEL'],
     token: process.env.DISCORD_TOKEN,
 });

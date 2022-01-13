@@ -1,31 +1,31 @@
-const { Message, Client } = require('discord.js');
-const { Event } = require('gcommands');
+const { Message } = require('discord.js');
+const { Listener } = require('gcommands');
 const { hasThread } = require('../../structures/Utils');
 
-class MessageCreate extends Event {
-    constructor(client) {
-        super(client, {
+new class MessageCreate extends Listener {
+    constructor() {
+        super({
             name: 'messageCreate',
-            ws: false,
-            once: false,
+            event: 'messageCreate'
         });
     }
 
     /**
-     * @param {Client} client 
      * @param {Message} message 
      */
-    async run(_, message) {
+    async run(message) {
+        const client = message.client;
+
         if (message.author.bot) return;
-        const guild = this.client.guilds.cache.get(this.client.config.guildId);
+        const guild = client.guilds.cache.get(client.config.guildId);
 
         if (!message.inGuild()) {
-            const thread = hasThread(guild, this.client.config.categoryId, message.author.id);
+            const thread = hasThread(guild, client.config.categoryId, message.author.id);
             if (thread) {
                 thread.send(`**${message.author.tag}** ↠ ${message.content}`).catch(e => message.channel.send('\⭐ Your message is too long!'));
                 return;
             } else {
-                const category = guild.channels.cache.get(this.client.config.categoryId);
+                const category = guild.channels.cache.get(client.config.categoryId);
                 const permissions = [...category.permissionOverwrites.cache.values()].map(p => {
                     return {
                         id: p.id,
@@ -42,17 +42,15 @@ class MessageCreate extends Event {
                 })
     
                 message.channel.send('\⭐ Thank you for your message! Our mod team will reply to you here as soon as possible. Please keep in mind that **we are not Discord employees** and support issues have to go to https://dis.gd/support, and we cannot assist you or escalate them for you.')
-                this.client.emit('messageCreate', message);
+                client.emit('messageCreate', message);
             }
-        } else if (message.guildId === this.client.config.guildId) {
-            if (message.channel.parentId !== this.client.config.categoryId && !message.channel.name.includes('thread')) return;
+        } else if (message.guildId === client.config.guildId) {
+            if (message.channel.parentId !== client.config.categoryId && !message.channel.name.includes('thread')) return;
 
-            const user = this.client.users.cache.get(message.channel.name.split('-')[0]);
+            const user = client.users.cache.get(message.channel.name.split('-')[0]);
 
             if (!user) return message.channel.send('\⭐ This user is not on the servers.')
             else user.send(`**${message.author.tag}** ↠ ${message.content}`).catch(e => message.channel.send('\⭐ Your message is too long!'))
         }
     }
 }
-
-module.exports = MessageCreate;

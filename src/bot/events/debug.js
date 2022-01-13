@@ -1,22 +1,17 @@
-const { Client } = require('discord.js');
-const { Event } = require('gcommands');
+const { Listener } = require('gcommands');
 
-class Debug extends Event {
-    constructor(client) {
-        super(client, {
+new class Debug extends Listener {
+    constructor() {
+        super({
             name: 'debug',
-            ws: false,
-            once: false,
+            event: 'debug'
         });
     }
 
     /**
-     * @param {Client} client 
      * @param {string} debug 
      */
-    run(client, debug) {
+    run(debug) {
         console.log(debug);
     }
 }
-
-module.exports = Debug;
