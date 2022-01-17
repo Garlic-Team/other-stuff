@@ -1,0 +1,24 @@
+{
+  "name": "candyfier",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/main.js",
+    "pm2": "pm2 start main.js --name Candyfier",
+    "eslint": "eslint src/"
+  },
+  "keywords": [],
+  "author": "Garlic-Team (xHyroM)",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.5.1",
+    "dotenv": "^10.0.0",
+    "gcommands": "^9.0.0-next"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.0",
+    "eslint-plugin-import": "^2.25.3"
+  }
+}
