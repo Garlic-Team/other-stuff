@@ -5,7 +5,7 @@
 This repo is for storing a few things for which it is useless to have another repo..
 
 Currently branchs:
-- main
+- master
 - old
 - arduino
 - bash-things
