@@ -19,6 +19,6 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "dotenv": "^14.3.2",
-    "tiktok-scraper": "^1.4.36"
+    "rss-parser": "^3.12.0"
   }
 }
