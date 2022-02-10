@@ -21,10 +21,10 @@ new Command({
             }
         },
     ],
-    run: async({ client, reply, args, guild, member, interaction }) => {
+    run: async({ client, reply, arguments, guild, member, interaction }) => {
         if (!member.voice?.channel) return reply({ content: 'Beep boop voice?', ephemeral: true });
 
-        let query = args.getString('query');
+        let query = arguments.getString('query');
 
         interaction.deferReply();
 
