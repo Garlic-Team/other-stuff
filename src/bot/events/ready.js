@@ -10,7 +10,9 @@ new class Ready extends Listener {
         });
     }
 
-    run(client) {
+    async run(client) {
+        client.logChannel = await client.channels.fetch(client.config.logChannelId);
+        
         let users = 0;
         for (let guild of [...client.guilds.cache.values()]) users += guild.memberCount;
 

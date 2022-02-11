@@ -77,6 +77,10 @@ class Ticket {
             components: [],
             embeds: []
         })
+
+        this.client.logChannel.send({
+            content: `<@${this.user.id}>'s ticket has been created.`
+        })
     }
 
     async closeTicket(ignorCollector) {
@@ -146,6 +150,10 @@ class Ticket {
                 ])
             ]
         })
+
+        this.client.logChannel.send({
+            content: `<@${creator.id}>'s ticket has been closed.`
+        })
     }
 
     reopenTicket() {
@@ -170,6 +178,9 @@ class Ticket {
             ]
         })
 
+        this.client.logChannel.send({
+            content: `<@${creator.id}>'s ticket has been reopened.`
+        })
         this.interaction.message.delete();
     }
 
@@ -188,6 +199,13 @@ class Ticket {
         messages = messages.filter(m => m.content && m.author.id != this.client.user.id && !m.author.bot).map(m => Utils.msToTime(m.createdTimestamp) +" | "+ m.author.tag + ": " + m.cleanContent).join("\n") || "No messages were found.";
 
         this.channel.send({
+            files: [
+                new MessageAttachment(Buffer.from(messages), `transcript_${this.channel.id}.txt`)
+            ]
+        })
+
+        this.client.logChannel.send({
+            content: `Transcript from ${this.channel.id} ticket.`,
             files: [
                 new MessageAttachment(Buffer.from(messages), `transcript_${this.channel.id}.txt`)
             ]

@@ -6,6 +6,7 @@ class TicketClient extends GClient {
     constructor(options) {
         super(options);
 
+        this.logChannel = null;
         this.token = options.token;
         this.categories = null;
     }
