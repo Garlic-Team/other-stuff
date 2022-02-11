@@ -1,7 +1,7 @@
 const {Listener } = require('gcommands');
 const Ticket = require('../structures/Ticket');
 
-class Interaction extends Listener {
+new class Interaction extends Listener {
     constructor() {
         super({
             event: 'interactionCreate',
@@ -45,5 +45,3 @@ class Interaction extends Listener {
         }
     }
 }
-
-module.exports = Interaction;

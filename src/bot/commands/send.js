@@ -1,11 +1,12 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-const { Command } = require("gcommands");
+const { Command, CommandType } = require("gcommands");
 const { Inhibitor: { UserPermissions } } = require("gcommands");
 
-class Send extends Command {
+new class Send extends Command {
     constructor() {
         super({
             name: 'send',
+            type: [ CommandType.SLASH ],
             description: 'Send ticket panel',
             guildId: '747526604116459691',
             inhibitors: [
@@ -39,5 +40,3 @@ class Send extends Command {
         })
     }
 }
-
-module.exports = Send;

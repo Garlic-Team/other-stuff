@@ -1,6 +1,6 @@
 const { Listener } = require('gcommands');
 
-class Ready extends Listener {
+new class Ready extends Listener {
     constructor() {
         super({
             name: 'ready',
@@ -22,5 +22,3 @@ class Ready extends Listener {
         ].join('\n'));
     }
 }
-
-module.exports = Ready;
