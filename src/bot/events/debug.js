@@ -1,15 +1,16 @@
-const { Event } = require('gcommands');
+const { Listener } = require('gcommands');
 
-class Debug extends Event {
-    constructor(client) {
-        super(client, {
+class Debug extends Listener {
+    constructor() {
+        super({
             name: 'debug',
+            event: 'debug',
             ws: false,
             once: false,
         });
     }
 
-    run(client, debug) {
+    run(debug) {
         console.log(debug);
     }
 }

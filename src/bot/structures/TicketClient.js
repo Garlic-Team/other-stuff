@@ -1,8 +1,8 @@
 const { MessageSelectMenu } = require('discord.js');
-const { GCommandsClient } = require('gcommands');
+const { GClient } = require('gcommands');
 const path = require('path');
 
-class TicketClient extends GCommandsClient {
+class TicketClient extends GClient {
     constructor(options) {
         super(options);
 

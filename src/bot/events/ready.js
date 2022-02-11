@@ -1,9 +1,10 @@
-const { Event } = require('gcommands');
+const { Listener } = require('gcommands');
 
-class Ready extends Event {
-    constructor(client) {
-        super(client, {
+class Ready extends Listener {
+    constructor() {
+        super({
             name: 'ready',
+            event: 'ready',
             ws: false,
             once: true,
         });

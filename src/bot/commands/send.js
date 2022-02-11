@@ -1,17 +1,22 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const { Command } = require("gcommands");
+const { Inhibitor: { UserPermissions } } = require("gcommands");
 
 class Send extends Command {
-    constructor(client) {
-        super(client, {
+    constructor() {
+        super({
             name: 'send',
             description: 'Send ticket panel',
-            guildOnly: '747526604116459691',
-            userRequiredPermissions: ['MANAGE_GUILD']
+            guildId: '747526604116459691',
+            inhibitors: [
+                new UserPermissions({
+                    permissions: ['MANAGE_GUILD']
+                })
+            ]
         });
     }
 
-    run({ client, respond }) {
+    run({ client, reply }) {
         const embed = new MessageEmbed()
             .setAuthor(client.config.embed.author)
             .setDescription(client.config.embed.description)
@@ -28,7 +33,7 @@ class Send extends Command {
                     .setCustomId('create_ticket')
             ])
 
-        respond({
+        reply({
             embeds: [embed],
             components: [row]
         })

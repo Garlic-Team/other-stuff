@@ -8,15 +8,10 @@ const client = new TicketClient({
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MEMBERS,
     ],
-    language: 'english',
-    loader: {
-        cmdDir: path.join(__dirname, 'commands'),
-        eventDir: path.join(__dirname, 'events'),
-    },
-    commands: {
-        slash: 'slash',
-        context: 'false',
-    },
+    dirs: [
+        path.join(__dirname, 'commands'),
+        path.join(__dirname, 'events'),
+    ],
     token: process.env.DISCORD_TOKEN,
 });
 

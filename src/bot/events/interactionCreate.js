@@ -1,16 +1,17 @@
-const { Event } = require('gcommands');
-const Ticket = require('../../structures/Ticket');
+const {Listener } = require('gcommands');
+const Ticket = require('../structures/Ticket');
 
-class Interaction extends Event {
-    constructor(client) {
-        super(client, {
+class Interaction extends Listener {
+    constructor() {
+        super({
+            event: 'interactionCreate',
             name: 'interactionCreate',
             ws: false,
             once: false,
         });
     }
 
-    async run(client, interaction) {
+    async run(interaction) {
         if (!interaction.isButton()) return;
 
         if (interaction.customId === 'create_ticket') {
