@@ -1,7 +1,6 @@
 **Requirements:**
 --
-Nodejs v16  
-FFmpeg  
+Nodejs v16    
 [Packages](https://github.com/Garlic-Team/MusicBot/blob/dev/package.json)
 
 **Run:**
