@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/Garlic-Team/other-stuff/issues"
   },
-  "homepage": "https://github.com/Garlic-Team/other-stuff#readme"
+  "homepage": "https://github.com/Garlic-Team/other-stuff#readme",
+  "dependencies": {
+    "@discordjs/rest": "^0.3.0",
+    "discord-api-types": "^0.27.2",
+    "discord.js": "^13.6.0",
+    "gcommands": "^9.1.0-next.1644861737"
+  }
 }
