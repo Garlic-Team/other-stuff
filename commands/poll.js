@@ -40,11 +40,6 @@ new Command({
                     inline: true,
                 },
                 {
-                    name: 'Timeout'
-                    value: member.isCommunicationDisabled ? member.communicationDisabledUntil : '❌',
-                    inline: true,
-                },
-                {
                     name: 'Joined At',
                     value: member.joinedAt.toString(),
                     inline: true,
