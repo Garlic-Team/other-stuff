@@ -22,7 +22,7 @@ Plugins.search(__dirname);
 const client = new GClient({
 	// Register the directories where your commands/components/listeners will be located.
 	dirs: [
-		join(__dirname, 'commands')
+		join(__dirname, 'commadnds')
 	],
 	// Set the prefix for message commands
 	messagePrefix: '!',
