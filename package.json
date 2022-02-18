@@ -13,8 +13,8 @@
   "author": "Garlic-Team (xHyroM)",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "8.9.0",
-    "eslint-plugin-import": "^2.25.3"
+    "eslint": "8.4.0",
+    "eslint-plugin-import": "2.25.3"
   },
   "dependencies": {
     "discord.js": "^13.3.1",
