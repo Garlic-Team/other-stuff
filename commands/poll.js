@@ -1,6 +1,5 @@
 const { Command, CommandType } = require('gcommands');
 
-// Create a new command with the name 'hello'
 new Command({
 	name: 'hello',
 	description: 'Says hello!',
