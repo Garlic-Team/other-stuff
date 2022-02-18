@@ -2,5 +2,6 @@
   "extends": [
     "config:base"
   ],
+  "labels": ["dependencies"],
   "baseBranches": [ "candyfier", "modmail", "musicbot", "pollbot", "ticketbot", "tiktokbot" ]
 }
