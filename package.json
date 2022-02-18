@@ -1,0 +1,24 @@
+{
+  "name": "garlicpollbot",
+  "version": "1.0.0",
+  "description": "Easy poll bot for @everyone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Garlic-Team/other-stuff.git"
+  },
+  "keywords": [
+    "pollbot",
+    "garlic",
+    "cesnek"
+  ],
+  "author": "iZboxo & GarlicTeam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Garlic-Team/other-stuff/issues"
+  },
+  "homepage": "https://github.com/Garlic-Team/other-stuff#readme"
+}
