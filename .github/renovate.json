@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "baseBranches": [ "candyfier", "modmail", "musicbot", "pollbot", "ticketbot", "tiktokbot" ]
+}
