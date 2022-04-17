@@ -19,7 +19,7 @@
     "dotenv": "^10.0.0",
     "gcommands": "^9.0.0-next",
     "play-dl": "^1.4.4",
-    "spotify-url-info": "^2.2.3",
+    "spotify-url-info": "^3.0.0",
     "youtube-sr": "^4.1.10"
   },
   "devDependencies": {
