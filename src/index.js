@@ -7,7 +7,7 @@ const client = new Client({
     intents: ['GUILDS','GUILD_MESSAGES']
 })
 
-const resolveId = async () => (await client.tiktok.getUserProfileInfo(process.env.TIKTOK_ACCOUNT)).userId;
+const resolveId = async () => (await tiktok.getUserProfileInfo(process.env.TIKTOK_ACCOUNT)).userId;
 
 client.on('ready', async() => {
     const tiktokChannel = await client.channels.fetch(process.env.NOTIFICATION_CHANNEL_ID);
