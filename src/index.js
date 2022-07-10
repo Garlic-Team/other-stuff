@@ -18,7 +18,7 @@ client.on('ready', async() => {
         let ifAlready = [...(await ytChannel.messages.fetch({ limit: 1 })).values()]
         if (ifAlready.length > 0) ifAlready = ifAlready[0].content.match(urlRegexp);
         if (ifAlready != null) ifAlready = ifAlready[1];
-        if (ifAlready == req.link) return;
+        if (ifAlready == req?.link) return;
 
         ytChannel.send(`${process.env.NEW_POST_MESSAGE.replace(`{url}`,req.link)}`);
     }, 15000)
